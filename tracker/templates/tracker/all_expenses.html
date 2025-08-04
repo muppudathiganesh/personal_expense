@@ -1,0 +1,25 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+<h2>All Expenses</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Amount</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Notes</th>
+  </tr>
+  {% for exp in expenses %}
+  <tr>
+    <td>{{ exp.title }}</td>
+    <td>₹{{ exp.amount }}</td>
+    <td>{{ exp.category }}</td>
+    <td>{{ exp.date }}</td>
+    <td>{{ exp.notes }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">No expenses recorded.</td></tr>
+  {% endfor %}
+</table>
+<a href="{% url 'dashboard' %}" class="btn btn-secondary mt-2">Back to Dashboard</a>
+{% endblock %}

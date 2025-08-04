@@ -1,0 +1,43 @@
+{% extends 'tracker/base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<p><strong>Total This Month:</strong> ₹{{ total }}</p>
+
+<h4>Category Breakdown</h4>
+<ul>
+  {% for row in category_breakdown %}
+    <li>{{ row.category }}: ₹{{ row.total }}</li>
+  {% empty %}
+    <li>No expenses yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'add_expense' %}" class="btn btn-success mt-3">Add Expense</a>
+<a href="{% url 'all_expenses' %}" class="btn btn-secondary mt-3">All Expenses</a>
+
+<hr>
+<h4>Recent Expenses</h4>
+<table class="table table-bordered mt-3">
+  <tr>
+    <th>Title</th>
+    <th>Amount</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Actions</th>
+  </tr>
+  {% for exp in expenses %}
+  <tr>
+    <td>{{ exp.title }}</td>
+    <td>₹{{ exp.amount }}</td>
+    <td>{{ exp.category }}</td>
+    <td>{{ exp.date }}</td>
+    <td>
+      <a href="{% url 'edit_expense' exp.id %}" class="btn btn-sm btn-warning">Edit</a>
+      <a href="{% url 'delete_expense' exp.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">No expenses added yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
